@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+    <title>Fetch MAP</title>
+    <style>
+        #map 
+        { 
+            height: 80vh; 
+            width: 100vw;
+           
+        }
+    </style>
+
+  </head>
+  <body>
+    <p>
+        latitude: <span id="lat"></span>°<br />
+        longitude: <span id="lon"></span>°
+    </p>
+    <div id="map"></div>
+    
+    <script>
+
+let map = L.map('map').setView([48.869, 2.389], 14);
+let customMarker = L.marker([48.869, 2.389]).addTo(map);
+let clicMarker;
+// customMarker.bindPopup("<b>Ici c'est Paris</b><br> <button>Ajouter un lieux</button>")
+let form = 
+"<form action='#' method='post'>"+
+    "<input type='text' id='name' name= 'name' placeholder='lieux'>"+
+    "<br><input type='text' id='type' name= 'name' placeholder='type de lieux'>"+
+    "<br><textarea id='msg' name='message' placeholder='Commentaire'></textarea>"+
+    "<br><input id='lon' name= 'longitude' placeholder='longitude' type='hidden'>"+
+    "<br><input id='lat' name= 'latitude' placeholder='latitude' type='hidden'>"+
+    "<button>Envoyer</button>"+
+    "</form>";
+
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+}).addTo(map);
+
+
+var circle = L.circle([48.869, 2.389], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
+
+var polygon = L.polygon([
+    [51.509, -0.08],
+    [51.503, -0.06],
+    [51.51, -0.047]
+]).addTo(map);
+
+
+customMarker.bindPopup("<b>DESCODEUSES</b><br>").openPopup();
+circle.bindPopup("I am a circle.");
+polygon.bindPopup("I am a polygon.");
+
+let popup = L.popup();
+
+function onMapClick(e) {
+    //on verifie s'il existe deja un marker
+    if(clicMarker){
+    //si oui on le retire
+    map.removeLayer(clicMarker);
+   
+}
+    //on place le marker au clic
+        clicMarker = new L.marker(e.latlng, {draggable:true}).addTo(map);  
+        clicMarker.on('dragend', function(e){
+        }).bindPopup(form).openPopup();  
+}
+
+map.on('click', onMapClick);
+
+
+
+    </script>
+  </body>
+</html>

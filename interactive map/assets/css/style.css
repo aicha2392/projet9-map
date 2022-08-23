@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color : #7fffd4;
+    --secondary-color : #f0ffff;
+    --alternative-color: #b456ae;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+.flex {
+    display: flex;
+}
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+.flex-stretch {
+    align-items: stretch;
+    justify-content: stretch;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.flex-column {
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    position: sticky;
+    top: 0;
+}
+.logo { 
+    font-family: 'Lobster', cursive; 
+    font-size: 2rem; 
+    color: var(--alternative-color); 
+}
+nav {
+    height: 75px;
+    display: grid;
+    padding: 1em;
+    grid-template-columns: 12fr 5fr;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+nav ul li img { width: 25px; }
+nav ul li {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    transition: background-color 350ms ease-in-out;
+}
+nav ul li:hover {
+    background-color: var(--primary-color);
+    transition: background-color 350ms ease-in-out;
+}
+
+/* Footer */
+footer {
+    position: sticky;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    font-size: .75em;
+}
+
+/* Content */
+.app_view {
+    padding: 1em;
+}
+.app_view_name {
+    /* position: absolute; */
+    bottom: 0;
+    right: 0;
+    font-size: 5em;
+}
+#homepage {
+    display: grid;
+    grid-template-columns: 5fr 2.5fr;
+}
+#homepage aside {
+    padding: .5em;
+}
+#homepage aside ul {
+    justify-self: flex-end;
+}
+#homepage aside ul li {
+    padding-top: 1.25em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+#homepage aside ul li img {
+    padding-bottom: 0;
+}
+#homepage aside ul li a {
+    font-size: .75em;
+}
+#mappy {
+    background-color: var(--alternative-color);
+}
+#map { height: 300px; }
+#starred {
+    background-color: #FFFFFF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23E3FCFF' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
+}
+.starred_item {
+    width: 30%;
+    text-align: center;
+    line-height: 1.8em;
+    padding: 10px;
+    margin: 1%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    background-color: #fff;
+}
+.starred_item p, .starred_item a {
+    font-size: 0.8em;
+}
+.starred_item img { width: 100%; border-radius: 10px; }
+#account {
+    background-color: var(--primary-color);
+}
+#settings {
+    background-color: var(--secondary-color);
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    h5 { font-size: .75em; }
+    nav {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        height: 120px;
+    }
+    nav ul { justify-content: space-evenly; }
+    nav ul li {
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        transition: background-color 350ms ease-in-out;
+    }
+    nav ul li:hover {
+        background-color: var(--primary-color);
+        transition: background-color 350ms ease-in-out;
+    }
+    .logo { text-align: center; }
+    .starred_item { width: 40%; }
+}
+
+@media screen and (max-width: 465px) {
+    .starred_item { width: 100%; }
+}
