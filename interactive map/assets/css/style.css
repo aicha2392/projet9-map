@@ -123,8 +123,8 @@ footer {
   background-color: var(--alternative-color);
 }
 #map {
-  height: 300px;
-  width: 300px;
+  height: 80vh;
+  width: 70vw;
 }
 #starred {
   background-color: #ffffff;
