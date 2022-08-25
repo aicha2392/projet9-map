@@ -75,60 +75,60 @@ function onMapClick(e) {
     // FORMULAIRE POUR INDIQUER SUR LA MAP LES INFOS CONCERNANT DES LIEUX REMPLI PAR L'ADMIN DANS LA BDD
     // QUI APPARAITRONS EN CLIQUANT SUR LE MARKER
 
-    // "<form id='myform'>" +
-    // "<input type='text' id='name' name='name' placeholder='Nom établissement'>" +
-    // "<br><input type='text' id='category' name='category' placeholder ='type de lieux'>" +
-    // "<br><input type='text' id='adress' name='adress' placeholder ='adresse'>" +
-    // "<br><input name='city-id' placeholder='ville'>" +
-    // "<br><input id='lon' name= 'longitude' placeholder='longitude' type='hidden' value='"+e.latlng.lat.toFixed(2)+"'>" +
-    // "<br><input id='lat' name= 'latitude' placeholder='latitude' type='hidden' value='"+e.latlng.lng.toFixed(2)+"'>" +
-    // "</form>"
-    ();
-}
+//     "<form id='myform'>" +
+//     "<input type='text' id='name' name='name' placeholder='Nom établissement'>" +
+//     "<br><input type='text' id='category' name='category' placeholder ='type de lieux'>" +
+//     "<br><input type='text' id='adress' name='adress' placeholder ='adresse'>" +
+//     "<br><input name='city-id' placeholder='ville'>" +
+//     "<br><input id='lon' name= 'longitude' placeholder='longitude' type='hidden' value='"+e.latlng.lat.toFixed(2)+"'>" +
+//     "<br><input id='lat' name= 'latitude' placeholder='latitude' type='hidden' value='"+e.latlng.lng.toFixed(2)+"'>" +
+//     "</form>"
+  );
+ }
 
 //on le surveille au clic
 map.on("click", onMapClick);
 
 //   // traitement formulaire
 
-//   document.addEventListener('submit', function (event){
-//     event.preventDefault();
-//     console.log("c'est passé ?", event.target);
-//     let form = document.getElementById('myform');
-//     console.log(form);
-//     //on recupere tout le form a partir de l'evenenement, et on hydrate le Formdata avec
-//     let data= new FormData(event.target);
-//     console.log(data)
-//     let value = Object.fromEntries(data.entries());
-//     console.log({value})
-//     let name = document.getElementById('name').value;
-//     let type = document.getElementById('type').value;
+  //   // traitement formulaire
 
-//     console.log(JSON.stringify(value));
+  //   document.addEventListener('submit', function (event){
+  //     event.preventDefault();
+  //     console.log("c'est passé ?", event.target);
+  //     let form = document.getElementById('myform');
+  //     console.log(form);
+  //     //on recupere tout le form a partir de l'evenenement, et on hydrate le Formdata avec
+  //     let data= new FormData(event.target);
+  //     console.log(data)
+  //     let value = Object.fromEntries(data.entries());
+  //     console.log({value})
+  //     let name = document.getElementById('name').value;
+  //     let type = document.getElementById('type').value;
 
-//     fetch('../serveur/insertData.php', {
-//         method: 'POST',
-//         body: JSON.stringify(value),
-//         headers: {
-//             "Content-Type": "application/json; charset=UTF-8"
-//         }
-//     })
-//     .then((response)=> console.log(response.json()))
-//     .then((data)=> console.log(data))
-// });
+  //     console.log(JSON.stringify(value));
 
-fetch("../serveur/list.php") // on fait un fetch pour faire appel à lapi
-  .then((response) => {
-    // et recupere la reponse json
-    return response.json();
-  }) //on fait une boucle qui recupere un element d'un objet pour créer des markers
-  .then((data) => {
-    data.map((place) =>
-      L.marker([place.lat, place.lng])
-        .bindPopup(`${place.name}<br>${place.adress}<br>`)
-        .addTo(map)
-    );
-  });
+  //     fetch('../serveur/insertData.php', {
+  //         method: 'POST',
+  //         body: JSON.stringify(value),
+  //         headers: {
+  //             "Content-Type": "application/json; charset=UTF-8"
+  //         }
+  //     })
+  //     .then((response)=> console.log(response.json()))
+  //     .then((data)=> console.log(data))
+  // });
+
+//liste des marqueurs
+      fetch('../serveur/list.php') // on fait un fetch pour faire appel à lapi 
+    .then((response) => { // et recupere la reponse json
+      return response.json(); 
+    })
+     .then((data) => {
+      data.map(place => //on fait une boucle qui recupere un element d'un objet pour créer des markers
+      L.marker([place.lat, place.lng]).bindPopup(`${place.name}<br>${place.adress}<br>`).addTo(map))
+  
+    });
 
 // list // -------------------------------------------------------------------
 class Card {

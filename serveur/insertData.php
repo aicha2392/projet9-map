@@ -6,8 +6,8 @@ header('Content-Type: application/json');
 $content = json_decode(stripslashes(file_get_contents("php://input")),true);
 
 
-get the place details concerne le formulaire pour l'ajout de lieux par le user s'il se connecte
-mais ne marche pas encore à revoir!!
+// get the place details concerne le formulaire pour l'ajout de lieux par le user s'il se connecte
+// mais ne marche pas encore à revoir!!
 
 $idPlace = $content['id'];
 $namePlace= $content['name'];
