@@ -1,53 +1,88 @@
 <?php
-include 'bdd.php';
+$server = 'localhost';
+$username = 'root';
+$password = '';
+$db = 'mydb';
 
 
-header('Content-Type: application/json');
-$content = json_decode(stripslashes(file_get_contents("php://input")), true);
+
+$bdd = new mysqli($server, $username, $password, $db) or die ("Unable to Connect");
+
+// ( $host = 'localhost', $user = 'root', $password = '', $database = 'mydb', $port = [1002 => 'SET NAMES utf8'] )
 
 
-// get the place details concerne le formulaire pour l'ajout de lieux par le user s'il se connecte
-// mais ne marche pas encore à revoir!!
+// header('Content-Type: application/json');
+// $content = json_decode(stripslashes(file_get_contents("php://input")),true);
 
-if(isset($content['submit'])){
 
-    $name= $content['name'];
-    $adress = $content['adress'];
-    // $idCategory2 = $content['category_id1'];
-    // $idCategory = (int)$idCategory2;
-    // $idCity2 = $content['city_id'];
-    // $idCity = (int)$idCity2;
-    // $longitude2 = $content['longitude'];
-    // $longitude = $longitude2;
-    // $latitude2 = $content['latitude'];
-    // $latitude = $latitude2;
+// // get the place details concerne le formulaire pour l'ajout de lieux par le user s'il se connecte
+// // mais ne marche pas encore à revoir!!
+// if (isset($content['submit'])){
+
+// $namePlace= $content['name'];
+// $adressPlace = $content['adress'];
+// $idCategory = $content['category_id'];
+// $idCity = $content['city_id'];
+// $longitude = $content['longitude'];
+// $latitude = $content['latitude'];
     
-//insert into mysql table
+
+// //insert into mysql table
+
+// $sql = "INSERT INTO place(name, adress, lat, lng, city_id, category_id1) VALUES ('".$namePlace."','".$adressPlace."','".$latitude."','".$longitude."','".$idCity."','".$idCategory."')";
 
 
-//$sql = "Insert into place2 (name, adress, lat, lng, city_id, category_id1) values (?,?,?,?,?,?);";
-$sql = "Insert into place2 (name, adress) values ($name, $adress)";
-//$stmt = $conn->stmt_init();
-if (!$stmt->prepare($sql)) {
-    echo "something went wrong!!!";
-    exit();
-}
-//$stmt->bind_param('ss', $name, $adress);
-$stmt->execute();
-if ($stmt->affected_rows) {
-    http_response_code(200);
-    echo "Congratulation!!\n Registration successful\n";
-}
-exit();
+// if(mysql_query($conn,$sql)){
+//     echo "ok";
+// }else{
+//         echo "error $sql. " .mysqli_error($conn);
+//     }
 
-// $sql = "INSERT INTO place (name, adress, lat, lng, city_id, category_id1) VALUES
-// ('$name','$adress', '$latitude','$longitude','$idCity','$idCategory')";
-// // if(!mysql_query($sql,$conn))
 
-// {
-//     die('Error : ' . mysql_error());
 // }
+
+
+
+// // traitement/
+//     echo( json_encode($content));
+// 
+
+
+$response = array();
+$res=array();
+
+$jsonRaw = file_get_contents('php://input');
+$json = json_decode($jsonRaw);
+
+if($json!=null){
+
+    
+    $namePlace= $json->namePlace;
+    $adressPlace = $json->adressPlace;
+    $category_id = $json->category_id;
+    $city_id = $json->city_id;
+    $lon = $json->lon;
+    $lat = $json->lat;
+
+    $sql = "INSERT INTO place(name, adress, lng, lat, city_id, category_id1) VALUES ('$namePlace','$adressPlace','$lon','$lat','$city_id','$category_id')";
+
+    if(mysqli_query($bdd, $sql)){
+        $svrResp["code"] = "1";
+        $svrResp["message"] = "Sucessfully Connected";
+
+        echo json_encode($response);
+    }else{
+        $svrResp["code"] = "2";
+        $svrResp["message"] = mysqli_error($bdd);
+        echo json_encode($response);
+    }
+}else{
+    echo "JSON data error";
 }
-// traitement/
-    echo( json_encode(['status_code'=>200]));
-?>
+    
+
+mysqli_close($bdd);
+
+
+
+ ?>
