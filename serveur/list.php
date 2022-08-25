@@ -12,4 +12,3 @@ header('Content-Type: application/json'); // ce qui va faire comprendre au navig
 echo json_encode($reponse->fetchAll(), true); // transforme un array en json
 
 ?>
-
